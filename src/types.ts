@@ -23,4 +23,5 @@ export type InputData = {
   var1: string;
   var2: string;
   shouldCalculate?: boolean;
+  isEnteringVar2: boolean;
 };

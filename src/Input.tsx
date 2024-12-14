@@ -14,9 +14,10 @@ const renderButton = (
     style={[styles.item, buttonColor && { backgroundColor: buttonColor }]}
     disabled={disabled}
     onPress={() => {
-      if (value === "AC") setData({ var1: "", var2: "" });
+      if (value === "AC")
+        setData({ var1: "", var2: "", isEnteringVar2: false });
       else if (value) {
-        if (!inputData.operator) {
+        if (!inputData.isEnteringVar2) {
           setData((data) => ({
             ...data,
             var1: String(data.var1) + value,
@@ -31,22 +32,44 @@ const renderButton = (
       } else {
         switch (iconName) {
           case "plus":
-            setData((data) => ({ ...data, operator: "+" }));
+            setData((data) => ({
+              ...data,
+              operator: "+",
+              isEnteringVar2: true,
+            }));
             break;
           case "minus":
-            setData((data) => ({ ...data, operator: "-" }));
+            if (!inputData.isEnteringVar2 && !inputData.var1) {
+              setData((data) => ({ ...data, var1: "-" }));
+            } else if (inputData.isEnteringVar2 && !inputData.var2) {
+              setData((data) => ({ ...data, var2: "-" }));
+            } else {
+              setData((data) => ({ ...data, operator: "-" }));
+            }
             break;
           case "close":
-            setData((data) => ({ ...data, operator: "x" }));
+            setData((data) => ({
+              ...data,
+              operator: "x",
+              isEnteringVar2: true,
+            }));
             break;
           case "division":
-            setData((data) => ({ ...data, operator: "/" }));
+            setData((data) => ({
+              ...data,
+              operator: "/",
+              isEnteringVar2: true,
+            }));
             break;
           case "equal":
-            setData((data) => ({ ...data, shouldCalculate: true }));
+            setData((data) => ({
+              ...data,
+              shouldCalculate: true,
+              isEnteringVar2: true,
+            }));
             break;
           case "backspace":
-            if (!inputData.operator) {
+            if (!inputData.isEnteringVar2) {
               setData((data) => ({
                 ...data,
                 var1: String(data.var1).slice(0, -1),

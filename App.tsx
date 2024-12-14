@@ -7,7 +7,11 @@ import { useState } from "react";
 import { InputData } from "./src/types";
 
 export default function App() {
-  const [inputData, setInputData] = useState<InputData>({ var1: "", var2: "" });
+  const [inputData, setInputData] = useState<InputData>({
+    var1: "",
+    var2: "",
+    isEnteringVar2: false,
+  });
   return (
     <PaperProvider>
       <StatusBar style="inverted" translucent={false} />

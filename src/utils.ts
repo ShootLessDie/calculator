@@ -8,6 +8,6 @@ export const operations: Record<Operator, Operation> = {
 };
 
 export const formatWithThousandSeparators = (input: string): string => {
-  if (input === "") return input;
+  if (input === "" || input === "-") return input;
   return String(Number(input).toLocaleString());
 };
