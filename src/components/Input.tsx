@@ -14,106 +14,109 @@ const renderButton = (
   { buttonColor, disabled, iconName, value }: InputKeyboardData,
   setData: GridViewProps<InputKeyboardData>["setData"],
   inputData: InputData,
-): JSX.Element => (
-  <TouchableOpacity
-    style={[styles.item, buttonColor && { backgroundColor: buttonColor }]}
-    disabled={disabled}
-    onPress={() => {
-      if (value === "AC")
-        setData({ var1: "", var2: "", isEnteringVar2: false });
-      else if (value) {
-        if (!inputData.isEnteringVar2) {
-          setData((data) => ({
-            ...data,
-            var1: String(data.var1) + value,
-            shouldCalculate: false,
-          }));
-        } else {
-          setData((data) => ({
-            ...data,
-            var2: String(data.var2) + value,
-            shouldCalculate: false,
-          }));
-        }
+): JSX.Element => {
+  const onPressHandler = () => {
+    if (value === "AC") setData({ var1: "", var2: "", isEnteringVar2: false });
+    else if (value) {
+      if (!inputData.isEnteringVar2) {
+        setData((data) => ({
+          ...data,
+          var1: String(data.var1) + value,
+          shouldCalculate: false,
+        }));
       } else {
-        switch (iconName) {
-          case "plus":
-            setData((data) => ({
-              ...data,
-              operator: "+",
-              isEnteringVar2: true,
-              shouldCalculate: false,
-            }));
-            break;
-          case "minus":
-            if (!inputData.isEnteringVar2 && !inputData.var1) {
-              setData((data) => ({ ...data, var1: "-" }));
-            } else if (inputData.isEnteringVar2 && !inputData.var2) {
-              setData((data) => ({ ...data, var2: "-" }));
-            } else {
-              setData((data) => ({
-                ...data,
-                operator: "-",
-                isEnteringVar2: true,
-                shouldCalculate: false,
-              }));
-            }
-            break;
-          case "close":
-            setData((data) => ({
-              ...data,
-              operator: "x",
-              isEnteringVar2: true,
-              shouldCalculate: false,
-            }));
-            break;
-          case "division":
-            setData((data) => ({
-              ...data,
-              operator: "/",
-              isEnteringVar2: true,
-              shouldCalculate: false,
-            }));
-            break;
-          case "equal":
-            setData((data) => ({
-              ...data,
-              shouldCalculate: true,
-              var1: data.var1 === "" || data.var1 === "-" ? "0" : data.var1,
-              var2: data.var2 === "" || data.var2 === "-" ? "0" : data.var2,
-            }));
-            break;
-          case "backspace":
-            if (!inputData.isEnteringVar2) {
-              setData((data) => ({
-                ...data,
-                var1: String(data.var1).slice(0, -1),
-                shouldCalculate: false,
-              }));
-            } else {
-              setData((data) => ({
-                ...data,
-                var2: String(data.var2).slice(0, -1),
-                shouldCalculate: false,
-              }));
-            }
-        }
+        setData((data) => ({
+          ...data,
+          var2: String(data.var2) + value,
+          shouldCalculate: false,
+        }));
       }
-    }}
-  >
-    {value ? (
-      <Text style={[styles.text, disabled && { color: disabledText }]}>
-        {value}
-      </Text>
-    ) : (
-      <Icon
-        source={iconName}
-        size={40}
-        color={disabled ? disabledText : text}
-      ></Icon>
-    )}
-  </TouchableOpacity>
-);
+    } else {
+      switch (iconName) {
+        case "plus":
+          setData((data) => ({
+            ...data,
+            operator: "+",
+            isEnteringVar2: true,
+            shouldCalculate: false,
+          }));
+          break;
+        case "minus":
+          if (!inputData.isEnteringVar2 && !inputData.var1) {
+            setData((data) => ({ ...data, var1: "-" }));
+          } else if (inputData.isEnteringVar2 && !inputData.var2) {
+            setData((data) => ({ ...data, var2: "-" }));
+          } else {
+            setData((data) => ({
+              ...data,
+              operator: "-",
+              isEnteringVar2: true,
+              shouldCalculate: false,
+            }));
+          }
+          break;
+        case "close":
+          setData((data) => ({
+            ...data,
+            operator: "x",
+            isEnteringVar2: true,
+            shouldCalculate: false,
+          }));
+          break;
+        case "division":
+          setData((data) => ({
+            ...data,
+            operator: "/",
+            isEnteringVar2: true,
+            shouldCalculate: false,
+          }));
+          break;
+        case "equal":
+          setData((data) => ({
+            ...data,
+            shouldCalculate: true,
+            var1: data.var1 === "" || data.var1 === "-" ? "0" : data.var1,
+            var2: data.var2 === "" || data.var2 === "-" ? "0" : data.var2,
+          }));
+          break;
+        case "backspace":
+          if (!inputData.isEnteringVar2) {
+            setData((data) => ({
+              ...data,
+              var1: String(data.var1).slice(0, -1),
+              shouldCalculate: false,
+            }));
+          } else {
+            setData((data) => ({
+              ...data,
+              var2: String(data.var2).slice(0, -1),
+              shouldCalculate: false,
+            }));
+          }
+      }
+    }
+  };
+
+  return (
+    <TouchableOpacity
+      style={[styles.item, buttonColor && { backgroundColor: buttonColor }]}
+      disabled={disabled}
+      onPress={onPressHandler}
+    >
+      {value ? (
+        <Text style={[styles.text, disabled && { color: disabledText }]}>
+          {value}
+        </Text>
+      ) : (
+        <Icon
+          source={iconName}
+          size={styles.text.fontSize}
+          color={disabled ? disabledText : text}
+        ></Icon>
+      )}
+    </TouchableOpacity>
+  );
+};
 
 const Input = ({
   setInputData,
