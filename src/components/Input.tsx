@@ -2,22 +2,22 @@ import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-paper";
 import GridView, { GridViewProps } from "./GridView";
-import { InputData, InputKeyboardData } from "../types";
-import {
-  disabledText,
-  inputKeyboardData,
-  lightBrown,
-  text,
-} from "../constants";
+import { InputData, ButtonSetupData } from "../types";
+import { disabledText, buttonSetupData, lightBrown, text } from "../constants";
 
 const renderButton = (
-  { buttonColor, disabled, iconName, value }: InputKeyboardData,
-  setData: GridViewProps<InputKeyboardData>["setData"],
+  { buttonColor, disabled, iconName, value }: ButtonSetupData,
+  setData: GridViewProps<ButtonSetupData>["setData"],
   inputData: InputData,
 ): JSX.Element => {
   const onPressHandler = () => {
     if (value === "AC")
-      setData({ operand1: "", operand2: "", isEnteringOperand2: false });
+      setData({
+        operand1: "",
+        operand2: "",
+        isEnteringOperand2: false,
+        shouldCalculate: false,
+      });
     else if (value) {
       if (!inputData.isEnteringOperand2) {
         setData((data) => ({
@@ -139,7 +139,7 @@ const Input = ({
       onLayout={(e) => setWidth(e.nativeEvent.layout.width)}
     >
       <GridView
-        buttonData={inputKeyboardData}
+        buttonData={buttonSetupData}
         columnNumber={4}
         renderItem={renderButton}
         setData={setInputData}

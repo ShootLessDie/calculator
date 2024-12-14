@@ -1,6 +1,6 @@
 export type Operation = (a: number, b: number) => number | string;
 
-export type InputKeyboardData = {
+export type ButtonSetupData = {
   value?: string;
   iconName?:
     | "code-parentheses"
@@ -22,6 +22,6 @@ export type InputData = {
   operator?: Operator;
   operand1: string;
   operand2: string;
-  shouldCalculate?: boolean;
+  shouldCalculate: boolean;
   isEnteringOperand2: boolean;
 };

@@ -12,6 +12,7 @@ export default function App() {
     operand1: "",
     operand2: "",
     isEnteringOperand2: false,
+    shouldCalculate: false,
   });
   return (
     <PaperProvider>

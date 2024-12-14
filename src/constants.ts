@@ -1,4 +1,4 @@
-import { InputKeyboardData } from "./types";
+import { ButtonSetupData } from "./types";
 
 const lime = "#dce6b1";
 const lightOrange = "#fedcbe";
@@ -9,7 +9,7 @@ export const disabledText = "#a09aa0";
 export const backgroundDarkOrange = "#eedfd4";
 export const backgroundWhite = "#fdf6f4";
 
-export const inputKeyboardData: InputKeyboardData[] = [
+export const buttonSetupData: ButtonSetupData[] = [
   { id: 1, value: "AC", buttonColor: lime },
   {
     id: 2,
