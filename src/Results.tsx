@@ -12,7 +12,7 @@ const Results = ({ data }: { data: InputData }) => {
       setResult(
         operations[data.operator](Number(data.var1), Number(data.var2)),
       );
-    } else if (!data.shouldCalculate && result) {
+    } else if (!data.shouldCalculate) {
       setResult("");
     }
   }, [data]);

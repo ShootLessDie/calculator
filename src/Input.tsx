@@ -21,6 +21,7 @@ const renderButton = (
           setData((data) => ({
             ...data,
             var1: String(data.var1) + value,
+            shouldCalculate: false,
           }));
         } else {
           setData((data) => ({
@@ -36,6 +37,7 @@ const renderButton = (
               ...data,
               operator: "+",
               isEnteringVar2: true,
+              shouldCalculate: false,
             }));
             break;
           case "minus":
@@ -44,7 +46,12 @@ const renderButton = (
             } else if (inputData.isEnteringVar2 && !inputData.var2) {
               setData((data) => ({ ...data, var2: "-" }));
             } else {
-              setData((data) => ({ ...data, operator: "-" }));
+              setData((data) => ({
+                ...data,
+                operator: "-",
+                isEnteringVar2: true,
+                shouldCalculate: false,
+              }));
             }
             break;
           case "close":
@@ -52,6 +59,7 @@ const renderButton = (
               ...data,
               operator: "x",
               isEnteringVar2: true,
+              shouldCalculate: false,
             }));
             break;
           case "division":
@@ -59,13 +67,15 @@ const renderButton = (
               ...data,
               operator: "/",
               isEnteringVar2: true,
+              shouldCalculate: false,
             }));
             break;
           case "equal":
             setData((data) => ({
               ...data,
               shouldCalculate: true,
-              isEnteringVar2: true,
+              var1: data.var1 === "" || data.var1 === "-" ? "0" : data.var1,
+              var2: data.var2 === "" || data.var2 === "-" ? "0" : data.var2,
             }));
             break;
           case "backspace":
@@ -73,11 +83,13 @@ const renderButton = (
               setData((data) => ({
                 ...data,
                 var1: String(data.var1).slice(0, -1),
+                shouldCalculate: false,
               }));
             } else {
               setData((data) => ({
                 ...data,
-                var1: String(data.var2).slice(0, -1),
+                var2: String(data.var2).slice(0, -1),
+                shouldCalculate: false,
               }));
             }
         }
