@@ -1,16 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import { PaperProvider } from "react-native-paper";
-import Input from "./calculator/Input";
-import ResultDisplay from "./calculator/ResultDisplay";
+import Input from "./src/Input";
+import Results from "./src/Results";
+import { useState } from "react";
+import { InputData } from "./src/types";
 
 export default function App() {
+  const [inputData, setInputData] = useState<InputData>({ var1: "", var2: "" });
   return (
     <PaperProvider>
       <StatusBar style="inverted" translucent={false} />
       <View style={styles.container}>
-        <ResultDisplay />
-        <Input />
+        <Results data={inputData} />
+        <Input setInputData={setInputData} inputData={inputData} />
       </View>
     </PaperProvider>
   );
