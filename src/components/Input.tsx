@@ -10,98 +10,104 @@ const renderButton = (
   setData: GridViewProps<ButtonSetupData>["setData"],
   inputData: InputData,
 ): JSX.Element => {
-  const onPressHandler = () => {
-    if (value === "AC")
+  const shouldSetOperand1Negative =
+    !inputData.isEnteringOperand2 && !inputData.operand1;
+  const shouldSetOperand2Negative =
+    inputData.isEnteringOperand2 && !inputData.operand2;
+
+  const handleValuePress = (inputValue: string) => {
+    if (inputValue === "AC")
       setData({
         operand1: "",
         operand2: "",
         isEnteringOperand2: false,
         shouldCalculate: false,
       });
-    else if (value) {
-      if (!inputData.isEnteringOperand2) {
-        setData((data) => ({
-          ...data,
-          operand1: String(data.operand1) + value,
-          shouldCalculate: false,
-        }));
-      } else {
-        setData((data) => ({
-          ...data,
-          operand2: String(data.operand2) + value,
-          shouldCalculate: false,
-        }));
-      }
+    else if (inputData.isEnteringOperand2) {
+      setData((data) => ({
+        ...data,
+        operand2: String(data.operand2) + inputValue,
+        shouldCalculate: false,
+      }));
     } else {
-      switch (iconName) {
-        case "plus":
-          setData((data) => ({
-            ...data,
-            operator: "+",
-            isEnteringOperand2: true,
-            shouldCalculate: false,
-          }));
-          break;
-        case "minus":
-          if (!inputData.isEnteringOperand2 && !inputData.operand1) {
-            setData((data) => ({ ...data, operand1: "-" }));
-          } else if (inputData.isEnteringOperand2 && !inputData.operand2) {
-            setData((data) => ({ ...data, operand2: "-" }));
-          } else {
-            setData((data) => ({
-              ...data,
-              operator: "-",
-              isEnteringOperand2: true,
-              shouldCalculate: false,
-            }));
-          }
-          break;
-        case "close":
-          setData((data) => ({
-            ...data,
-            operator: "x",
-            isEnteringOperand2: true,
-            shouldCalculate: false,
-          }));
-          break;
-        case "division":
-          setData((data) => ({
-            ...data,
-            operator: "/",
-            isEnteringOperand2: true,
-            shouldCalculate: false,
-          }));
-          break;
-        case "equal":
-          setData((data) => ({
-            ...data,
-            shouldCalculate: true,
-            operand1:
-              data.operand1 === "" || data.operand1 === "-"
-                ? "0"
-                : data.operand1,
-            operand2:
-              data.operand2 === "" || data.operand2 === "-"
-                ? "0"
-                : data.operand2,
-          }));
-          break;
-        case "backspace":
-          if (!inputData.isEnteringOperand2) {
-            setData((data) => ({
-              ...data,
-              operand1: String(data.operand1).slice(0, -1),
-              shouldCalculate: false,
-            }));
-          } else {
-            setData((data) => ({
-              ...data,
-              operand2: String(data.operand2).slice(0, -1),
-              shouldCalculate: false,
-            }));
-          }
-      }
+      setData((data) => ({
+        ...data,
+        operand1: String(data.operand1) + inputValue,
+        shouldCalculate: false,
+      }));
     }
+  };
+
+  const handleOperatorPress = () => {
+    switch (iconName) {
+      case "plus":
+        setData((data) => ({
+          ...data,
+          operator: "+",
+          isEnteringOperand2: true,
+          shouldCalculate: false,
+        }));
+        break;
+      case "minus":
+        if (shouldSetOperand1Negative) {
+          setData((data) => ({ ...data, operand1: "-" }));
+        } else if (shouldSetOperand2Negative) {
+          setData((data) => ({ ...data, operand2: "-" }));
+        } else {
+          setData((data) => ({
+            ...data,
+            operator: "-",
+            isEnteringOperand2: true,
+            shouldCalculate: false,
+          }));
+        }
+        break;
+      case "close": // Name of the icon used for multiplication
+        setData((data) => ({
+          ...data,
+          operator: "x",
+          isEnteringOperand2: true,
+          shouldCalculate: false,
+        }));
+        break;
+      case "division":
+        setData((data) => ({
+          ...data,
+          operator: "/",
+          isEnteringOperand2: true,
+          shouldCalculate: false,
+        }));
+        break;
+      case "equal":
+        setData((data) => ({
+          ...data,
+          shouldCalculate: true,
+          operand1:
+            data.operand1 === "" || data.operand1 === "-" ? "0" : data.operand1,
+          operand2:
+            data.operand2 === "" || data.operand2 === "-" ? "0" : data.operand2,
+        }));
+        break;
+      case "backspace":
+        if (inputData.isEnteringOperand2) {
+          setData((data) => ({
+            ...data,
+            operand2: String(data.operand2).slice(0, -1),
+            shouldCalculate: false,
+          }));
+        } else {
+          setData((data) => ({
+            ...data,
+            operand1: String(data.operand1).slice(0, -1),
+            shouldCalculate: false,
+          }));
+        }
+    }
+  };
+
+  const onPressHandler = () => {
+    if (value) handleValuePress(value);
+    else handleOperatorPress();
   };
 
   return (
