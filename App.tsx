@@ -14,7 +14,7 @@ export default function App() {
   });
   return (
     <PaperProvider>
-      <StatusBar style="inverted" translucent={false} />
+      <StatusBar translucent={true} />
       <View style={styles.container}>
         <Results data={inputData} />
         <Input setInputData={setInputData} inputData={inputData} />
