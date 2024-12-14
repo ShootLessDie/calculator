@@ -8,18 +8,26 @@ const Results = ({ data }: { data: InputData }) => {
   const [result, setResult] = useState<number | string>();
 
   useEffect(() => {
-    if (data.shouldCalculate && data.operator) {
+    if (data.shouldCalculate && data.operator && data.var1 && data.var2) {
       setResult(
         operations[data.operator](Number(data.var1), Number(data.var2)),
       );
+    } else if (!data.shouldCalculate && result) {
+      setResult("");
     }
   }, [data]);
 
   return (
     <View style={{ ...styles.container }}>
-      <Text style={styles.text}>{data.var1}</Text>
-      <Text style={styles.text}>{data.var2}</Text>
-      <Text style={styles.text}>{result}</Text>
+      <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
+        {data.var1 + " " + (data.operator ?? "")}
+      </Text>
+      <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
+        {data.var2}
+      </Text>
+      <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
+        {result}
+      </Text>
     </View>
   );
 };

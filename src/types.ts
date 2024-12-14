@@ -16,8 +16,10 @@ export type InputKeyboardData = {
   disabled?: boolean;
 };
 
+export type Operator = "+" | "-" | "x" | "/";
+
 export type InputData = {
-  operator?: "+" | "-" | "*" | "/";
+  operator?: Operator;
   var1: string;
   var2: string;
   shouldCalculate?: boolean;

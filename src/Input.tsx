@@ -25,6 +25,7 @@ const renderButton = (
           setData((data) => ({
             ...data,
             var2: String(data.var2) + value,
+            shouldCalculate: false,
           }));
         }
       } else {
@@ -36,7 +37,7 @@ const renderButton = (
             setData((data) => ({ ...data, operator: "-" }));
             break;
           case "close":
-            setData((data) => ({ ...data, operator: "*" }));
+            setData((data) => ({ ...data, operator: "x" }));
             break;
           case "division":
             setData((data) => ({ ...data, operator: "/" }));
