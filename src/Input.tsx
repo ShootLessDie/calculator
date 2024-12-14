@@ -106,9 +106,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 8,
   },
-  row: {
-    flexDirection: "row",
-  },
   item: {
     flexGrow: 1,
     alignItems: "center",
