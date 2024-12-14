@@ -5,6 +5,7 @@ import Input from "./src/components/Input";
 import Results from "./src/components/Results";
 import { useState } from "react";
 import { InputData } from "./src/types";
+import { backgroundWhite } from "./src/constants";
 
 export default function App() {
   const [inputData, setInputData] = useState<InputData>({
@@ -24,15 +25,8 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: "black",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   container: {
     flex: 1,
-    backgroundColor: "#fdf6f4",
-    width: "100%",
+    backgroundColor: backgroundWhite,
   },
 });

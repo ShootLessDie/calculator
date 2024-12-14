@@ -3,22 +3,25 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import { formatWithThousandSeparators, operations } from "../utils";
 import { InputData } from "../types";
+import { backgroundDarkOrange } from "../constants";
 
 const Results = ({ data }: { data: InputData }) => {
   const [result, setResult] = useState<number | string>();
 
   useEffect(() => {
-    if (data.shouldCalculate && data.operator && data.var1 && data.var2) {
+    if (data.shouldCalculate && data.operator) {
       setResult(
         operations[data.operator](Number(data.var1), Number(data.var2)),
       );
+    } else if (data.shouldCalculate) {
+      setResult(Number(data.var1));
     } else if (!data.shouldCalculate) {
       setResult("");
     }
   }, [data]);
 
   return (
-    <View style={{ ...styles.container }}>
+    <View style={styles.container}>
       <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
         {formatWithThousandSeparators(data.var1) + " " + (data.operator ?? "")}
       </Text>
@@ -36,7 +39,7 @@ const Results = ({ data }: { data: InputData }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#eedfd4",
+    backgroundColor: backgroundDarkOrange,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
     flex: 1,

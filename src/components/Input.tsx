@@ -3,7 +3,12 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-paper";
 import GridView, { GridViewProps } from "./GridView";
 import { InputData, InputKeyboardData } from "../types";
-import { disabledText, inputKeyboardData, text } from "../constants";
+import {
+  disabledText,
+  inputKeyboardData,
+  lightBrown,
+  text,
+} from "../constants";
 
 const renderButton = (
   { buttonColor, disabled, iconName, value }: InputKeyboardData,
@@ -146,7 +151,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "100%",
-    backgroundColor: "#f7eee8",
+    backgroundColor: lightBrown,
   },
   text: {
     fontSize: 40,
