@@ -11,10 +11,10 @@ const Results = ({ data }: { data: InputData }) => {
   useEffect(() => {
     if (data.shouldCalculate && data.operator) {
       setResult(
-        operations[data.operator](Number(data.var1), Number(data.var2)),
+        operations[data.operator](Number(data.operand1), Number(data.operand2)),
       );
     } else if (data.shouldCalculate) {
-      setResult(Number(data.var1));
+      setResult(Number(data.operand1));
     } else if (!data.shouldCalculate) {
       setResult("");
     }
@@ -23,10 +23,12 @@ const Results = ({ data }: { data: InputData }) => {
   return (
     <View style={styles.container}>
       <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-        {formatWithThousandSeparators(data.var1) + " " + (data.operator ?? "")}
+        {formatWithThousandSeparators(data.operand1) +
+          " " +
+          (data.operator ?? "")}
       </Text>
       <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-        {formatWithThousandSeparators(data.var2)}
+        {formatWithThousandSeparators(data.operand2)}
       </Text>
       <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
         {typeof result === "string" || result === undefined

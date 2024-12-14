@@ -16,18 +16,19 @@ const renderButton = (
   inputData: InputData,
 ): JSX.Element => {
   const onPressHandler = () => {
-    if (value === "AC") setData({ var1: "", var2: "", isEnteringVar2: false });
+    if (value === "AC")
+      setData({ operand1: "", operand2: "", isEnteringOperand2: false });
     else if (value) {
-      if (!inputData.isEnteringVar2) {
+      if (!inputData.isEnteringOperand2) {
         setData((data) => ({
           ...data,
-          var1: String(data.var1) + value,
+          operand1: String(data.operand1) + value,
           shouldCalculate: false,
         }));
       } else {
         setData((data) => ({
           ...data,
-          var2: String(data.var2) + value,
+          operand2: String(data.operand2) + value,
           shouldCalculate: false,
         }));
       }
@@ -37,20 +38,20 @@ const renderButton = (
           setData((data) => ({
             ...data,
             operator: "+",
-            isEnteringVar2: true,
+            isEnteringOperand2: true,
             shouldCalculate: false,
           }));
           break;
         case "minus":
-          if (!inputData.isEnteringVar2 && !inputData.var1) {
-            setData((data) => ({ ...data, var1: "-" }));
-          } else if (inputData.isEnteringVar2 && !inputData.var2) {
-            setData((data) => ({ ...data, var2: "-" }));
+          if (!inputData.isEnteringOperand2 && !inputData.operand1) {
+            setData((data) => ({ ...data, operand1: "-" }));
+          } else if (inputData.isEnteringOperand2 && !inputData.operand2) {
+            setData((data) => ({ ...data, operand2: "-" }));
           } else {
             setData((data) => ({
               ...data,
               operator: "-",
-              isEnteringVar2: true,
+              isEnteringOperand2: true,
               shouldCalculate: false,
             }));
           }
@@ -59,7 +60,7 @@ const renderButton = (
           setData((data) => ({
             ...data,
             operator: "x",
-            isEnteringVar2: true,
+            isEnteringOperand2: true,
             shouldCalculate: false,
           }));
           break;
@@ -67,7 +68,7 @@ const renderButton = (
           setData((data) => ({
             ...data,
             operator: "/",
-            isEnteringVar2: true,
+            isEnteringOperand2: true,
             shouldCalculate: false,
           }));
           break;
@@ -75,21 +76,27 @@ const renderButton = (
           setData((data) => ({
             ...data,
             shouldCalculate: true,
-            var1: data.var1 === "" || data.var1 === "-" ? "0" : data.var1,
-            var2: data.var2 === "" || data.var2 === "-" ? "0" : data.var2,
+            operand1:
+              data.operand1 === "" || data.operand1 === "-"
+                ? "0"
+                : data.operand1,
+            operand2:
+              data.operand2 === "" || data.operand2 === "-"
+                ? "0"
+                : data.operand2,
           }));
           break;
         case "backspace":
-          if (!inputData.isEnteringVar2) {
+          if (!inputData.isEnteringOperand2) {
             setData((data) => ({
               ...data,
-              var1: String(data.var1).slice(0, -1),
+              operand1: String(data.operand1).slice(0, -1),
               shouldCalculate: false,
             }));
           } else {
             setData((data) => ({
               ...data,
-              var2: String(data.var2).slice(0, -1),
+              operand2: String(data.operand2).slice(0, -1),
               shouldCalculate: false,
             }));
           }

@@ -20,8 +20,8 @@ export type Operator = "+" | "-" | "x" | "/";
 
 export type InputData = {
   operator?: Operator;
-  var1: string;
-  var2: string;
+  operand1: string;
+  operand2: string;
   shouldCalculate?: boolean;
-  isEnteringVar2: boolean;
+  isEnteringOperand2: boolean;
 };

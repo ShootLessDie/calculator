@@ -9,9 +9,9 @@ import { backgroundWhite } from "./src/constants";
 
 export default function App() {
   const [inputData, setInputData] = useState<InputData>({
-    var1: "",
-    var2: "",
-    isEnteringVar2: false,
+    operand1: "",
+    operand2: "",
+    isEnteringOperand2: false,
   });
   return (
     <PaperProvider>
