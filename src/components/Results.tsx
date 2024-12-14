@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import { formatWithThousandSeparators, operations } from "./utils";
-import { InputData } from "./types";
+import { formatWithThousandSeparators, operations } from "../utils";
+import { InputData } from "../types";
 
 const Results = ({ data }: { data: InputData }) => {
   const [result, setResult] = useState<number | string>();

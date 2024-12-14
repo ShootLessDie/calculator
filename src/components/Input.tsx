@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-paper";
-import GridView, { GridViewProps } from "./Gridview";
-import { InputData, InputKeyboardData } from "./types";
-import { disabledText, inputKeyboardData, text } from "./constants";
+import GridView, { GridViewProps } from "./GridView";
+import { InputData, InputKeyboardData } from "../types";
+import { disabledText, inputKeyboardData, text } from "../constants";
 
 const renderButton = (
   { buttonColor, disabled, iconName, value }: InputKeyboardData,

@@ -1,8 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import { PaperProvider } from "react-native-paper";
-import Input from "./src/Input";
-import Results from "./src/Results";
+import Input from "./src/components/Input";
+import Results from "./src/components/Results";
 import { useState } from "react";
 import { InputData } from "./src/types";
 

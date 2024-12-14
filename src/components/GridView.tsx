@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
-import { InputData } from "./types";
+import { InputData } from "../types";
 
 export interface GridViewProps<T> {
   buttonData: T[];
