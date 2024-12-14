@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import { operations } from "./utils";
+import { formatWithThousandSeparators, operations } from "./utils";
 import { InputData } from "./types";
 
 const Results = ({ data }: { data: InputData }) => {
@@ -20,13 +20,15 @@ const Results = ({ data }: { data: InputData }) => {
   return (
     <View style={{ ...styles.container }}>
       <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-        {data.var1 + " " + (data.operator ?? "")}
+        {formatWithThousandSeparators(data.var1) + " " + (data.operator ?? "")}
       </Text>
       <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-        {data.var2}
+        {formatWithThousandSeparators(data.var2)}
       </Text>
       <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-        {result}
+        {typeof result === "string" || result === undefined
+          ? result
+          : formatWithThousandSeparators(String(result))}
       </Text>
     </View>
   );

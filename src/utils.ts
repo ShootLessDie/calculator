@@ -6,3 +6,8 @@ export const operations: Record<Operator, Operation> = {
   "x": (a, b) => a * b,
   "/": (a, b) => (b !== 0 ? a / b : "Error: Division by zero"),
 };
+
+export const formatWithThousandSeparators = (input: string): string => {
+  if (input === "") return input;
+  return String(Number(input).toLocaleString());
+};
