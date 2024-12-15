@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import { formatWithThousandSeparators, operations } from "../utils";
+import {
+  formatWithThousandSeparators,
+  isOperandValid,
+  operations,
+} from "../utils";
 import { InputData } from "../types";
-import { backgroundDarkOrange } from "../constants";
+import { backgroundDarkOrange, darkBrown } from "../constants";
 
 const Results = ({ data }: { data: InputData }) => {
   const [result, setResult] = useState<number | string>();
 
   useEffect(() => {
-    if (data.shouldCalculate && data.operator) {
+    if (
+      data.shouldCalculate &&
+      data.operator &&
+      isOperandValid(data.operand1) &&
+      isOperandValid(data.operand2)
+    ) {
       setResult(
         operations[data.operator](Number(data.operand1), Number(data.operand2)),
       );
-    } else if (data.shouldCalculate) {
-      setResult(Number(data.operand1));
     } else if (!data.shouldCalculate) {
       setResult("");
     }
@@ -30,7 +37,11 @@ const Results = ({ data }: { data: InputData }) => {
       <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
         {formatWithThousandSeparators(data.operand2)}
       </Text>
-      <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
+      <Text
+        adjustsFontSizeToFit
+        numberOfLines={1}
+        style={[styles.text, styles.resultText]}
+      >
         {typeof result === "string" || result === undefined
           ? result
           : formatWithThousandSeparators(String(result))}
@@ -59,6 +70,9 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 65,
+  },
+  resultText: {
+    color: darkBrown,
   },
 });
 

@@ -4,6 +4,7 @@ const lime = "#dce6b1";
 const lightOrange = "#fedcbe";
 export const lightBrown = "#f7eee8";
 export const brown = "#e3dfe3";
+export const darkBrown = "#4b463c";
 export const text = "#50443a";
 export const disabledText = "#a09aa0";
 export const backgroundDarkOrange = "#eedfd4";

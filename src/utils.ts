@@ -7,7 +7,12 @@ export const operations: Record<Operator, Operation> = {
   "/": (a, b) => (b !== 0 ? a / b : "Error: Division by zero"),
 };
 
+export const isOperandValid = (operand: string) => {
+  if (operand === "" || operand === "-") return false;
+  return true;
+};
+
 export const formatWithThousandSeparators = (input: string): string => {
-  if (input === "" || input === "-") return input;
+  if (!isOperandValid(input)) return input;
   return String(Number(input).toLocaleString());
 };

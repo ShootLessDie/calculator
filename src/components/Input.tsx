@@ -82,10 +82,6 @@ const renderButton = (
         setData((data) => ({
           ...data,
           shouldCalculate: true,
-          operand1:
-            data.operand1 === "" || data.operand1 === "-" ? "0" : data.operand1,
-          operand2:
-            data.operand2 === "" || data.operand2 === "-" ? "0" : data.operand2,
         }));
         break;
       case "backspace":
