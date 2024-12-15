@@ -30,9 +30,9 @@ const Results = ({ data }: { data: InputData }) => {
   return (
     <View style={styles.container}>
       <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-        {formatWithThousandSeparators(data.operand1) + data.operator
-          ? ` ${data.operator}`
-          : ""}
+        {data.operator !== undefined
+          ? `${formatWithThousandSeparators(data.operand1)} ${data.operator}`
+          : formatWithThousandSeparators(data.operand1)}
       </Text>
       <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
         {formatWithThousandSeparators(data.operand2)}
