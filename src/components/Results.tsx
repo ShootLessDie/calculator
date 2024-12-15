@@ -10,7 +10,7 @@ import { InputData } from "../types";
 import { backgroundDarkOrange, darkBrown } from "../constants";
 
 const Results = ({ data }: { data: InputData }) => {
-  const [result, setResult] = useState<number | string>();
+  const [result, setResult] = useState<number | string>("");
 
   useEffect(() => {
     if (
@@ -22,7 +22,7 @@ const Results = ({ data }: { data: InputData }) => {
       setResult(
         operations[data.operator](Number(data.operand1), Number(data.operand2)),
       );
-    } else if (!data.shouldCalculate) {
+    } else {
       setResult("");
     }
   }, [data]);
@@ -30,9 +30,9 @@ const Results = ({ data }: { data: InputData }) => {
   return (
     <View style={styles.container}>
       <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-        {formatWithThousandSeparators(data.operand1) +
-          " " +
-          (data.operator ?? "")}
+        {formatWithThousandSeparators(data.operand1) + data.operator
+          ? ` ${data.operator}`
+          : ""}
       </Text>
       <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
         {formatWithThousandSeparators(data.operand2)}
@@ -42,7 +42,7 @@ const Results = ({ data }: { data: InputData }) => {
         numberOfLines={1}
         style={[styles.text, styles.resultText]}
       >
-        {typeof result === "string" || result === undefined
+        {typeof result === "string"
           ? result
           : formatWithThousandSeparators(String(result))}
       </Text>
