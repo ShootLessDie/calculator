@@ -4,6 +4,7 @@ import { Icon } from "react-native-paper";
 import GridView, { GridViewProps } from "./GridView";
 import { InputData, ButtonSetupData } from "../types";
 import { disabledText, buttonSetupData, lightBrown, text } from "../constants";
+import { isOperandValid } from "../utils";
 
 const renderButton = (
   { buttonColor, disabled, iconName, value }: ButtonSetupData,
@@ -43,8 +44,8 @@ const renderButton = (
       case "plus":
         setData((data) => ({
           ...data,
-          operator: "+",
-          isEnteringOperand2: true,
+          operator: isOperandValid(data.operand1) ? "+" : undefined,
+          isEnteringOperand2: isOperandValid(data.operand1) ? true : false,
           shouldCalculate: false,
         }));
         break;
@@ -56,8 +57,8 @@ const renderButton = (
         } else {
           setData((data) => ({
             ...data,
-            operator: "-",
-            isEnteringOperand2: true,
+            operator: isOperandValid(data.operand1) ? "-" : undefined,
+            isEnteringOperand2: isOperandValid(data.operand1) ? true : false,
             shouldCalculate: false,
           }));
         }
@@ -65,16 +66,16 @@ const renderButton = (
       case "close": // Name of the icon used for multiplication
         setData((data) => ({
           ...data,
-          operator: "x",
-          isEnteringOperand2: true,
+          operator: isOperandValid(data.operand1) ? "x" : undefined,
+          isEnteringOperand2: isOperandValid(data.operand1) ? true : false,
           shouldCalculate: false,
         }));
         break;
       case "division":
         setData((data) => ({
           ...data,
-          operator: "/",
-          isEnteringOperand2: true,
+          operator: isOperandValid(data.operand1) ? "/" : undefined,
+          isEnteringOperand2: isOperandValid(data.operand1) ? true : false,
           shouldCalculate: false,
         }));
         break;
